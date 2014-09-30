@@ -13,7 +13,7 @@ Requirements:
 Initialize:  
     $(document).animateScroll();  
 Example html:  
-    &lt;p data-animate-scroll='{ 
+    &lt;p data-animate-scroll='{  
       "scaleX": "1.5",  
       "scaleY": "1.5",  
       "x": "-10",  
