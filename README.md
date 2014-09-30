@@ -13,7 +13,7 @@ Requirements:
 Initialize:  
     $(document).animateScroll();  
 Example html:  
-    <p data-animate-scroll='{ 
+    &lt;p data-animate-scroll='{ 
       "scaleX": "1.5",  
       "scaleY": "1.5",  
       "x": "-10",  
@@ -22,5 +22,5 @@ Example html:
       "alpha": "1",  
       "easingType": "Cubic.easeOut",  
       "duration": "1"  
-      }'>test</p>  
+      }'&gt;test&lt;/p&gt;  
     
