@@ -1,5 +1,4 @@
-animate-scroll
-==============
+##animate-scroll
 
 Plugin Name: jQuery Animation Scroll Plugin  
 Plugin Description: animate-scroll is a mobile friendly Viewport triggered animation jQuery Plugin using greensock.  
@@ -7,6 +6,8 @@ Copyright (C) 2014  Jason Paul Lusk (Jason@jasonlusk.com)
 Author: Jason Lusk  
 Author URI: JasonLusk.com  
 GIT URI: https://github.com/mpalpha/animate-scroll.git  
+
+####DEMO http://www.jasonlusk.com/scroll
 
 Requirements:  
   jQuery.js v1.10.1+ from www.jquery.com.  
