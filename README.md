@@ -9,7 +9,7 @@ Author URI: JasonLusk.com
 GIT URI: https://github.com/mpalpha/animate-scroll.git  
 
 Requirements:  
-  jQuery.js v1.10.1+ from jquery.com.  
+  jQuery.js v1.10.1+ from www.jquery.com.  
   TweenMax.js 1.10.2+, TimelineMax.js v1.10.2+, EasePack.js v1.9.3+ from www.greensock.com.  
   
 Initialize:  
