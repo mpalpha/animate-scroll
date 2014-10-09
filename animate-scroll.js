@@ -26,13 +26,13 @@ Example:
                         action = evt.type;
                     }
                 });
-                if (!throttles.watch) {
+                if (!!throttles.watch) {
                     $window.find('body').andSelf().on('scroll resize orientationchange touchend gestureend', function(e) {
                         // trigger viewport animation check
                         throttles.scroll = (throttles.scroll == null) && setTimeout(function() {
                             animateScroll.inview(e.type == 'resize' || e.type == 'orientationchange');
                             throttles.scroll = null;
-                        }, 250);
+                        }, 101);
                     });
                 }
                 throttles.watch = el;
@@ -48,22 +48,20 @@ Example:
                 return (vTop < elBottom && elBottom < vBottom) || (vTop < elTop && elTop < vBottom) ? 'reverse' : 'play';
             },
             update: function($this, $timeline) {
-                var $progress = $timeline.progress();
-                $timeline.progress(0, true);
-                // update saved offset and size
-                $this.data({
-                    'originalOffset': $this.offset(),
-                    'originalSize': {
-                        width: $this.width(),
-                        height: $this.height()
-                    }
-                })
-                    .promise()
-                    .done(function() {
-                        // set progress and trigger animation event
-                        $timeline.progress($progress, true)[animateScroll.check($this)];
+                var newOffset = $this.offset(),
+                    oldOffset = $this.data('originalOffset') || {
+                        top: 0
+                    };
+                if (newOffset.top != oldOffset.top) {
+                    // update saved offset and size
+                    $this.data({
+                        'originalOffset': newOffset,
+                        'originalSize': {
+                            width: $this.width(),
+                            height: $this.height()
+                        }
                     });
-
+                }
             },
             inview: function(resize) {
                 animations.each(function() {
@@ -127,7 +125,9 @@ Example:
                         },
                         'tween': new TimelineMax({
                             paused: true,
-                            reversed: true
+                            onComplete: function() {
+                                animateScroll.update($this, this);
+                            }
                         })
                             .to($this, options.duration, {
                                 transformStyle: 'preserve-3d',
@@ -143,26 +143,16 @@ Example:
                                 delay: options.delay,
                                 z: options.z,
                                 force3D: options.force3D,
-                                ease: options.easingType,
-                                onComplete: function() {
-                                    var $timeline = this;
-                                    animateScroll
-                                        .bind($this, options);
-                                    setTimeout(function() {
-                                        animateScroll.update($this, $timeline);
-                                    }, 250);
-                                },
-                                onReverseComplete: function() {
-                                    var $timeline = this;
-                                    setTimeout(function() {
-                                        animateScroll.update($this, $timeline);
-                                    }, 250);
-                                }
+                                ease: options.easingType
                             }).progress(1, false)
                     })
+                    .promise()
+                    .done(function() {
+                        animateScroll
+                            .bind($this, options);
+                    });
             }
         };
-
     $.fn.animateScroll = function(options) {
         //set up default options
         var defaults = {
