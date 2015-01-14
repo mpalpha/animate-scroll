@@ -27,7 +27,7 @@ Example:
                     }
                 });
                 if (!!throttles.watch) {
-                    $window.find('body').andSelf().on('scroll resize orientationchange touchend gestureend', function(e) {
+                    $window.find('body').andSelf().on('scroll resize orientationchange touchend gestureend check', function(e) {
                         // trigger viewport animation check
                         throttles.scroll = (throttles.scroll == null) && setTimeout(function() {
                             animateScroll.inview(e.type == 'resize' || e.type == 'orientationchange');
