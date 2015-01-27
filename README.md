@@ -57,3 +57,10 @@ duration|0.3|Animation diration in seconds
       "duration": "1"  
       }'>test</p>  
 ```
+
+#####Events (Optional):
+
+Type|Example
+-------------|-------------
+play|`$('.my-animated-element').trigger('play');`
+reverse|`$('.my-animated-element').trigger('reverse');`
