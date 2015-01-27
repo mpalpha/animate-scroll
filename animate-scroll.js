@@ -8,6 +8,7 @@ Example:
 (function($, window, document) {
     'use strict';
     var $window = $(window),
+        attachEvent = document.attachEvent,
         //init scroll-event only once for better performance -> save target-data first in arrays
         throttles = {},
         animations = [],
@@ -91,10 +92,10 @@ Example:
 
                 // function to initialize plugin and pass custom variables from html5 data attributes
                 animations.each(function() {
-                    var $el = $(this);
-                    $el
-                        .animateScroll($el.data('animate-scroll'));
-                })
+                        var $el = $(this);
+                        $el
+                            .animateScroll($el.data('animate-scroll'));
+                    })
                     .promise()
                     .done(function() {
                         animateScroll.inview();
@@ -124,11 +125,11 @@ Example:
                             height: $this.height()
                         },
                         'tween': new TimelineMax({
-                            paused: true,
-                            onComplete: function() {
-                                animateScroll.update($this, this);
-                            }
-                        })
+                                paused: true,
+                                onComplete: function() {
+                                    animateScroll.update($this, this);
+                                }
+                            })
                             .to($this, options.duration, {
                                 transformStyle: 'preserve-3d',
                                 transformOrigin: options.transformOrigin,
@@ -201,35 +202,52 @@ Example:
 
     // element resize listener [add|remove]ResizeListener(resizeElement, resizeCallback);
     // based on https://github.com/sdecima/javascript-detect-element-resize
-    var attachEvent = document.attachEvent,
-        stylesCreated = false;
     if (!attachEvent) {
         var createStyles = function() {
-                if (!stylesCreated) {
-                    var e = '.r-t { visibility: hidden; } .r-t, .r-t > div, .c-t:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .r-t > div { background: #eee; overflow: auto; } .c-t:before { width: 200%; height: 200%; }',
-                        n = document.head || document.getElementsByTagName("head")[0],
-                        r = document.createElement("style");
+                if (!!createStyles) {
+                    var n = document.head || document.getElementsByTagName("head")[0],
+                        r = document.createElement("style"),
+                        css = '.r-t {\
+                        visibility: hidden;\
+                    }\
+                    .r-t, .r-t > div, .c-t:before {\
+                        content: " ";\
+                        display: block;\
+                        position: absolute;\
+                        top: 0;\
+                        left: 0;\
+                        height: 100%;\
+                        width: 100%;\
+                        overflow: hidden\
+                    }\
+                    .r-t > div {\
+                        background: #eee;\
+                        overflow: auto\
+                    }\
+                    .c-t:before {\
+                        width: 200%;\
+                        height: 200%\
+                    }';
                     r.type = "text/css";
                     if (r.styleSheet) {
-                        r.styleSheet.cssText = e
+                        r.styleSheet.cssText = css
                     } else {
-                        r.appendChild(document.createTextNode(e))
+                        r.appendChild(document.createTextNode(css))
                     }
                     n.appendChild(r)
+                    return r.sheet || false;
+                } else {
+                    return false;
                 }
             },
             requestFrame = function() {
-                var e = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(e) {
-                    return window.setTimeout(e, 20)
-                };
                 return function(t) {
-                    return e(t)
+                    return window.requestAnimationFrame(t)
                 }
             }(),
             cancelFrame = function() {
-                var e = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
                 return function(t) {
-                    return e(t)
+                    return window.cancelAnimationFrame(t)
                 }
             }(),
             resetTriggers = function(e) {
@@ -260,13 +278,43 @@ Example:
                         })
                     }
                 })
-            };
+            },
+            rafPolyFill = function() {
+                var _af = 'AnimationFrame',
+                    _req = 'Request',
+                    _raf = 'request' + _af,
+                    _can = 'Cancel',
+                    _caf = 'cancel' + _af,
+                    expire = 0,
+                    vendors = ['moz', 'ms', 'o', 'webkit'],
+                    pre;
+
+                while (!window[_raf] && (pre = vendors.pop())) {
+                    window[_raf] = window[pre + _req + _af];
+                    window[_caf] = window[pre + _can + _af] || window[pre + _can + _req + _af];
+                }
+
+                if (!window[_raf]) {
+                    window[_raf] = function(callback) {
+                        var current = +new Date,
+                            adjusted = 16 - (current - expire),
+                            delay = adjusted > 0 ? adjusted : 0;
+                        expire = current + delay;
+
+                        return setTimeout(function() {
+                            callback(expire);
+                        }, delay);
+                    };
+                    window[_caf] = clearTimeout;
+                }
+            }
     }
     window.addResizeListener = function(t, n) {
         if (attachEvent) t.attachEvent("onresize", n);
         else {
             if (!t.__rt__) {
                 if (getComputedStyle(t).position == "static") t.style.position = "relative";
+                rafPolyFill();
                 createStyles();
                 t.__rl__ = {};
                 t.__rl__ = [];
