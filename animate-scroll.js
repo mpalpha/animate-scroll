@@ -10,9 +10,9 @@ Example:
     var $window = $(window),
         attachEvent = document.attachEvent,
         //init scroll-event only once for better performance -> save target-data first in arrays
-        throttles = {},
-        animations = [],
         animateScroll = {
+            throttles: {},
+            animations: [],
             bind: function(el, options) {
                 $(el).on('reverse play', function(evt) {
                     // animate target object based on viewport check event
@@ -27,16 +27,16 @@ Example:
                         action = evt.type;
                     }
                 });
-                if (!!throttles.watch) {
+                if (!!animateScroll.throttles.watch) {
                     $window.find('body').andSelf().on('scroll resize orientationchange touchend gestureend check', function(e) {
                         // trigger viewport animation check
-                        throttles.scroll = (throttles.scroll == null) && setTimeout(function() {
+                        animateScroll.throttles.scroll = (animateScroll.throttles.scroll == null) && setTimeout(function() {
                             animateScroll.inview(e.type == 'resize' || e.type == 'orientationchange');
-                            throttles.scroll = null;
+                            animateScroll.throttles.scroll = null;
                         }, 101);
                     });
                 }
-                throttles.watch = el;
+                animateScroll.throttles.watch = el;
             },
             check: function(target) {
                 // is stored original element position centered within the viewport
@@ -45,7 +45,7 @@ Example:
                     vBottom = vTop + $window.height(),
                     elTop = tObj.data('originalOffset').top,
                     elBottom = elTop + parseInt(tObj.data('originalSize').height);
-                throttles.transition = null;
+                animateScroll.throttles.transition = null;
                 return (vTop < elBottom && elBottom < vBottom) || (vTop < elTop && elTop < vBottom) ? 'reverse' : 'play';
             },
             update: function($this, $timeline) {
@@ -65,7 +65,7 @@ Example:
                 }
             },
             inview: function(resize) {
-                animations.each(function() {
+                animateScroll.animations.each(function() {
                     var $this = $(this),
                         $timeline = $this.data('tween');
                     // update trigger position
@@ -194,9 +194,10 @@ Example:
                 }
             });
         } else {
-            animations = $('[data-animate-scroll]');
             animateScroll
-                .init(animations);
+                .animations = $('[data-animate-scroll]');
+            animateScroll
+                .init(animateScroll.animations);
         }
     }
 
