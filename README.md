@@ -64,3 +64,4 @@ Type|Example
 -------------|-------------
 play|`$('.my-animated-element').trigger('play');`
 reverse|`$('.my-animated-element').trigger('reverse');`
+check|`$('.my-animated-element').trigger('check');`
