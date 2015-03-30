@@ -6,7 +6,7 @@ Copyright (C) 2014  Jason Paul Lusk (Jason@jasonlusk.com)
 Author: Jason Lusk  
 Author URI: http://JasonLusk.com  
 GIT URI: https://github.com/mpalpha/animate-scroll.git  
-TIPS: https://cash.me/$JasonLusk
+Tip: https://cash.me/$JasonLusk
 
 ####DEMO <a href="http://www.jasonlusk.com/scroll" target="_blank">http://www.jasonlusk.com/scroll</a>
 
