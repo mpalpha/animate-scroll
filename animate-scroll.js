@@ -15,6 +15,9 @@ Example:
             animations: [],
             bind: function(el, options) {
                 $(el).on('reverse play', function(evt) {
+                    if(evt.type == 'play' && !options.reverse){
+                        return true;
+                    }
                     // animate target object based on viewport check event
                     var $this = $(this),
                         $timeline = $this.data('tween'),
@@ -83,7 +86,7 @@ Example:
                     }
                 });
             },
-            init: function(animations) {
+            init: function(animations, options) {
 
                 // add resize event to body
                 addResizeListener($('body')[0], function() {
@@ -94,7 +97,7 @@ Example:
                 animations.each(function() {
                         var $el = $(this);
                         $el
-                            .animateScroll($el.data('animate-scroll'));
+                            .animateScroll($.extend({}, options, $el.data('animate-scroll')));
                     })
                     .promise()
                     .done(function() {
@@ -154,12 +157,13 @@ Example:
                     });
             }
         };
-    $.fn.animateScroll = function(options) {
+    $.fn.animateScroll = function(opts) {
         //set up default options
         var defaults = {
             transformPerspective: 1000, // Parent Transform Perspective
             lazyLoad: false, // Lazy Load Images (experimental)
             animateAll: false, // Animate elements outside of viewport?
+            reverse: true, // Allow elements reverse animation state?
             transformOrigin: '50% 50%', // Transform Origin X/Y Position
             x: 0, // Horizontal offset in px
             y: 0, // Vertical offset in px
@@ -177,10 +181,11 @@ Example:
         };
 
         //vars
-        var options = $.extend({}, defaults, options);
+        var options = $.extend({}, defaults, opts);
         if (this[0] != document) {
 
             this.each(function(index) {
+                options = $.extend({}, defaults, opts);
                 var $this = $(this),
                     $parent = $this.parent();
                 if (options.lazyLoad && $this.is('img')) {
@@ -197,7 +202,7 @@ Example:
             animateScroll
                 .animations = $('[data-animate-scroll]');
             animateScroll
-                .init(animateScroll.animations);
+                .init(animateScroll.animations, options);
         }
     }
 
