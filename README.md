@@ -30,6 +30,7 @@ Available Options|Default value|Description
 transformPerspective|1000|Parent transform perspective
 lazyLoad|false|Lazy load images (experimental)
 animateAll|false|Animate elements outside of viewport?
+reverse|true|Allow elements reverse animation state?
 transformOrigin|'50% 50%'|Transform origin X/Y position
 x|0|Horizontal offset in px
 y|0|Vertical offset in px
