@@ -1,4 +1,4 @@
-##animate-scroll
+## animate-scroll
 
 Plugin Name: jQuery Animation Scroll Plugin  
 Plugin Description: animate-scroll is a mobile friendly viewport triggered animation plugin for jQuery using greensock.  
@@ -8,23 +8,23 @@ Author URI: http://JasonLusk.com
 GIT URI: https://github.com/mpalpha/animate-scroll.git  
 Tip: https://cash.me/$JasonLusk
 
-####DEMO <a href="http://www.jasonlusk.com/scroll" target="_blank">http://www.jasonlusk.com/scroll</a>
+#### DEMO <a href="http://www.jasonlusk.com/scroll" target="_blank">http://www.jasonlusk.com/scroll</a>
 
-#####Requirements:  
+##### Requirements:  
   jQuery.js v1.10.1+ from www.jquery.com.  
   TweenMax.js 1.10.2+, TimelineMax.js v1.10.2+, EasePack.js v1.9.3+ from www.greensock.com. 
 
-#####Install:
+##### Install:
 ```Batchfile
     bower i mpalpha/animate-scroll
 ```
 
-#####Initialize:  
+##### Initialize:  
 ```javascript
     $(document).animateScroll();  
 ```
 
-#####Configure:
+##### Configure:
 Available Options|Default value|Description
 -------------|-------------|-------------
 transformPerspective|1000|Parent transform perspective
@@ -46,7 +46,7 @@ force3D|true|Force 3D hardware
 easingType|'Back.easeInOut'|Animation easing type
 duration|0.3|Animation diration in seconds
 
-#####Implement:  
+##### Implement:  
 ```html
     <p data-animate-scroll='{  
       "scaleX": "1.5",  
@@ -60,7 +60,7 @@ duration|0.3|Animation diration in seconds
       }'>test</p>  
 ```
 
-#####Events (Optional):
+##### Events (Optional):
 
 Type|Example
 -------------|-------------
