@@ -1,7 +1,5 @@
-looking for an current alternative? 
-## try [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
+## looking for an current alternative? try [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
 
----
 ### ~~animate-scroll~~ DEPRECATED - no longer actively maintained
 
 ~~Plugin Name: jQuery Animation Scroll Plugin  
