@@ -1,12 +1,17 @@
-## animate-scroll
+looking for an current alternative? 
+## try [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
 
-Plugin Name: jQuery Animation Scroll Plugin  
+---
+# DEPRECATED - no longer actively maintained
+## ~~animate-scroll~~
+
+~~Plugin Name: jQuery Animation Scroll Plugin  
 Plugin Description: animate-scroll is a mobile friendly viewport triggered animation plugin for jQuery using greensock.  
 Copyright (C) 2014  Jason Paul Lusk (Jason@jasonlusk.com)  
 Author: Jason Lusk  
 Author URI: http://JasonLusk.com  
 GIT URI: https://github.com/mpalpha/animate-scroll.git  
-Tip: https://cash.me/$JasonLusk
+Tip: https://cash.me/$JasonLusk~~
 
 #### DEMO <a href="http://www.jasonlusk.com/scroll" target="_blank">http://www.jasonlusk.com/scroll</a>
 
