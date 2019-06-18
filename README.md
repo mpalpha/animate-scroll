@@ -2,8 +2,7 @@ looking for an current alternative?
 ## try [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
 
 ---
-# DEPRECATED - no longer actively maintained
-## ~~animate-scroll~~
+### ~~animate-scroll~~ DEPRECATED - no longer actively maintained
 
 ~~Plugin Name: jQuery Animation Scroll Plugin  
 Plugin Description: animate-scroll is a mobile friendly viewport triggered animation plugin for jQuery using greensock.  
