@@ -1,4 +1,4 @@
-## looking for an current alternative? try [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
+## looking for a current alternative? try a custom solution using [ScrollMagic and GSAP](https://codepen.io/mpalpha/pen/bGNmpxB) or [Animate On Scroll](https://michalsnik.github.io/aos/) by Michal Sajnóg  
 
 ### ~~animate-scroll~~ DEPRECATED - no longer actively maintained
 
